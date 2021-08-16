@@ -244,12 +244,6 @@ class CityNotFound(Exception):
 class Doctolib(LoginBrowser):
     __instance = None
 
-    # sington
-    def __new__(cls, *args, **kwargs):
-        if cls.__instance:
-            return cls.__instance
-        else:
-            cls.__instance = Doctolib()
 
     # individual properties for each country. To be defined in subclasses
     BASEURL = ""
@@ -643,14 +637,6 @@ class DoctolibFR(Doctolib):
     center = URL(r'/centre-de-sante/.*', CenterPage)
 
 
-class MyLog():
-    def __init__(self, application):
-        self._application = application
-
-    def main_decorator(self):
-        print('start main ,time is' + time.ctime())
-        self._application.main()
-        print('main stop ,time is ' + time.ctime())
 
 
 class Application:
@@ -916,10 +902,7 @@ class Application:
 if __name__ == '__main__':
     try:
         # sys.exit(Application().main())
-        application = Application()
-        mylog_application = MyLog(application)
-        sys.exit(mylog_application.main_decorator())
-        # sys.exit(Application().main())
+        sys.exit(Application().main())
     except KeyboardInterrupt:
         print('Abort.')
         sys.exit(1)
