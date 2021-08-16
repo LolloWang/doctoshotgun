@@ -76,28 +76,6 @@ class Session(cloudscraper.CloudScraper):
         return callback(self, resp)
 
 
-# factory
-from abc import abstractmethod, ABCMeta
-
-
-class PageFactory(metaclass=ABCMeta):
-    def create_page(self):
-        pass
-
-
-class LoginPageFactory(PageFactory):
-    def create_page(self):
-        return LoginPage()
-
-
-class SendAuthCodePageFactory(PageFactory):
-    def create_page(self):
-        return SendAuthCodePageFactory()
-
-
-class ChallengePageFactory(PageFactory):
-    def create_page(self):
-        return ChallengePage()
 
 
 class LoginPage(JsonPage):
@@ -242,14 +220,6 @@ class CityNotFound(Exception):
 
 
 class Doctolib(LoginBrowser):
-    __instance = None
-
-    # sington
-    def __new__(cls, *args, **kwargs):
-        if cls.__instance:
-            return cls.__instance
-        else:
-            cls.__instance = Doctolib()
 
     # individual properties for each country. To be defined in subclasses
     BASEURL = ""
